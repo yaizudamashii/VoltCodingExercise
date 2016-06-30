@@ -7,14 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51BF3FD26E8F364809BBA2D4 /* Pods_VoltCodingExercise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E614970A165F12793FDAAC3F /* Pods_VoltCodingExercise.framework */; };
 		B60D71771D2524C000C4C137 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60D71761D2524C000C4C137 /* AppDelegate.swift */; };
 		B60D71791D2524C000C4C137 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60D71781D2524C000C4C137 /* ViewController.swift */; };
 		B60D717C1D2524C000C4C137 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B60D717A1D2524C000C4C137 /* Main.storyboard */; };
 		B60D717E1D2524C000C4C137 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B60D717D1D2524C000C4C137 /* Assets.xcassets */; };
 		B60D71811D2524C000C4C137 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B60D717F1D2524C000C4C137 /* LaunchScreen.storyboard */; };
+		B60D71891D25250400C4C137 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60D71881D25250400C4C137 /* PhotosViewController.swift */; };
+		B60D718E1D2525F000C4C137 /* FlickrService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60D718D1D2525F000C4C137 /* FlickrService.swift */; };
+		B60D71931D2527B800C4C137 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60D71921D2527B800C4C137 /* Photo.swift */; };
+		B60D71961D252CD200C4C137 /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60D71951D252CD200C4C137 /* PhotoTableViewCell.swift */; };
+		B60D71991D254B6C00C4C137 /* FlickrParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60D71981D254B6C00C4C137 /* FlickrParser.swift */; };
+		B6BAA66A1D256B2B001CD7DF /* AppAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BAA6691D256B2B001CD7DF /* AppAlerts.swift */; };
+		B6BAA66C1D256CFE001CD7DF /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BAA66B1D256CFE001CD7DF /* AppConstants.swift */; };
+		B6BAA66E1D258F4E001CD7DF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BAA66D1D258F4E001CD7DF /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B06107FD666ACE104BBA77A /* Pods-VoltCodingExercise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoltCodingExercise.release.xcconfig"; path = "Pods/Target Support Files/Pods-VoltCodingExercise/Pods-VoltCodingExercise.release.xcconfig"; sourceTree = "<group>"; };
 		B60D71731D2524C000C4C137 /* VoltCodingExercise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoltCodingExercise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B60D71761D2524C000C4C137 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B60D71781D2524C000C4C137 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +32,16 @@
 		B60D717D1D2524C000C4C137 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B60D71801D2524C000C4C137 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B60D71821D2524C000C4C137 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B60D71881D25250400C4C137 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotosViewController.swift; path = ViewControllers/PhotosViewController.swift; sourceTree = "<group>"; };
+		B60D718D1D2525F000C4C137 /* FlickrService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickrService.swift; path = Services/FlickrService.swift; sourceTree = "<group>"; };
+		B60D71921D2527B800C4C137 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Photo.swift; path = Models/Photo.swift; sourceTree = "<group>"; };
+		B60D71951D252CD200C4C137 /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoTableViewCell.swift; path = Views/PhotoTableViewCell.swift; sourceTree = "<group>"; };
+		B60D71981D254B6C00C4C137 /* FlickrParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlickrParser.swift; path = Utils/FlickrParser.swift; sourceTree = "<group>"; };
+		B6BAA6691D256B2B001CD7DF /* AppAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppAlerts.swift; path = Utils/AppAlerts.swift; sourceTree = "<group>"; };
+		B6BAA66B1D256CFE001CD7DF /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppConstants.swift; path = Utils/AppConstants.swift; sourceTree = "<group>"; };
+		B6BAA66D1D258F4E001CD7DF /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Utils/Extensions.swift; sourceTree = "<group>"; };
+		B752F258225395C351A5324F /* Pods-VoltCodingExercise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoltCodingExercise.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VoltCodingExercise/Pods-VoltCodingExercise.debug.xcconfig"; sourceTree = "<group>"; };
+		E614970A165F12793FDAAC3F /* Pods_VoltCodingExercise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoltCodingExercise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +49,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51BF3FD26E8F364809BBA2D4 /* Pods_VoltCodingExercise.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63F9B979D33A009371889053 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B752F258225395C351A5324F /* Pods-VoltCodingExercise.debug.xcconfig */,
+				1B06107FD666ACE104BBA77A /* Pods-VoltCodingExercise.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B60D716A1D2524C000C4C137 = {
 			isa = PBXGroup;
 			children = (
 				B60D71751D2524C000C4C137 /* VoltCodingExercise */,
 				B60D71741D2524C000C4C137 /* Products */,
+				63F9B979D33A009371889053 /* Pods */,
+				FC33770E2E29D9B16F81E7F8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +86,11 @@
 		B60D71751D2524C000C4C137 /* VoltCodingExercise */ = {
 			isa = PBXGroup;
 			children = (
+				B60D71901D25279600C4C137 /* Models */,
+				B60D718F1D2525F500C4C137 /* Services */,
+				B60D718A1D25250C00C4C137 /* ViewControllers */,
+				B60D71941D252CA000C4C137 /* Views */,
+				B60D71971D254B4B00C4C137 /* Utils */,
 				B60D71761D2524C000C4C137 /* AppDelegate.swift */,
 				B60D71781D2524C000C4C137 /* ViewController.swift */,
 				B60D717A1D2524C000C4C137 /* Main.storyboard */,
@@ -64,6 +101,57 @@
 			path = VoltCodingExercise;
 			sourceTree = "<group>";
 		};
+		B60D718A1D25250C00C4C137 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B60D71881D25250400C4C137 /* PhotosViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B60D718F1D2525F500C4C137 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B60D718D1D2525F000C4C137 /* FlickrService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		B60D71901D25279600C4C137 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B60D71921D2527B800C4C137 /* Photo.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		B60D71941D252CA000C4C137 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B60D71951D252CD200C4C137 /* PhotoTableViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		B60D71971D254B4B00C4C137 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B60D71981D254B6C00C4C137 /* FlickrParser.swift */,
+				B6BAA6691D256B2B001CD7DF /* AppAlerts.swift */,
+				B6BAA66B1D256CFE001CD7DF /* AppConstants.swift */,
+				B6BAA66D1D258F4E001CD7DF /* Extensions.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		FC33770E2E29D9B16F81E7F8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E614970A165F12793FDAAC3F /* Pods_VoltCodingExercise.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +159,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B60D71851D2524C000C4C137 /* Build configuration list for PBXNativeTarget "VoltCodingExercise" */;
 			buildPhases = (
+				E50BC65393F73DDCA8648B6B /* Check Pods Manifest.lock */,
 				B60D716F1D2524C000C4C137 /* Sources */,
 				B60D71701D2524C000C4C137 /* Frameworks */,
 				B60D71711D2524C000C4C137 /* Resources */,
+				F82822AA04196DABCDD96425 /* Embed Pods Frameworks */,
+				B3BD198E1BC764D37899DBC6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,13 +221,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B3BD198E1BC764D37899DBC6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VoltCodingExercise/Pods-VoltCodingExercise-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E50BC65393F73DDCA8648B6B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F82822AA04196DABCDD96425 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VoltCodingExercise/Pods-VoltCodingExercise-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B60D716F1D2524C000C4C137 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B60D71891D25250400C4C137 /* PhotosViewController.swift in Sources */,
+				B6BAA66C1D256CFE001CD7DF /* AppConstants.swift in Sources */,
 				B60D71791D2524C000C4C137 /* ViewController.swift in Sources */,
+				B60D71961D252CD200C4C137 /* PhotoTableViewCell.swift in Sources */,
+				B60D718E1D2525F000C4C137 /* FlickrService.swift in Sources */,
+				B6BAA66E1D258F4E001CD7DF /* Extensions.swift in Sources */,
 				B60D71771D2524C000C4C137 /* AppDelegate.swift in Sources */,
+				B60D71991D254B6C00C4C137 /* FlickrParser.swift in Sources */,
+				B6BAA66A1D256B2B001CD7DF /* AppAlerts.swift in Sources */,
+				B60D71931D2527B800C4C137 /* Photo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,9 +396,11 @@
 		};
 		B60D71861D2524C000C4C137 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B752F258225395C351A5324F /* Pods-VoltCodingExercise.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = VoltCodingExercise/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuki.VoltCodingExercise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -260,9 +409,11 @@
 		};
 		B60D71871D2524C000C4C137 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B06107FD666ACE104BBA77A /* Pods-VoltCodingExercise.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = VoltCodingExercise/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuki.VoltCodingExercise;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -288,6 +439,7 @@
 				B60D71871D2524C000C4C137 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
