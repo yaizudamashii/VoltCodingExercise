@@ -9,7 +9,6 @@
 import UIKit
 import AFNetworking
 import SDWebImage
-import SWXMLHash
 
 enum ImageSize: String {
     case medium = "z"
@@ -23,7 +22,10 @@ class FlickrService: NSObject {
     static let APIKey : String = "8ff4e3be97b270e0fa3a7beb69125340"
     static let secret : String = "3667574d899a23cd"
     
+    var dataFetchInProgress : Bool = false
+    var largestPageLoaded : Int = 0
     var recentPhotos : [Photo] = [Photo]()
+    var receivedPhotos : Set<String> = Set<String>()
     
     static func flickrParameters(page : Int) -> NSMutableDictionary {
         return ["api_key" : FlickrService.APIKey,
@@ -36,24 +38,36 @@ class FlickrService: NSObject {
         return manager
     }
     
-    func getRecentPublicPhotosWithCompletionHandler(page : Int, completionHandler : ((photos : [Photo]?, error : NSError?) -> Void)?) {
+    func getRecentPublicPhotosWithCompletionHandler(completionHandler : ((photos : [Photo]?, error : NSError?) -> Void)?) {
+        if (self.dataFetchInProgress == true) {
+            completionHandler?(photos : nil, error : nil)
+            return
+        }
+        self.dataFetchInProgress = true
         let url : String = "\(FlickrService.FLICKR_REST_API)"
         let manager = AFHTTPSessionManager()
         manager.requestSerializer = AFHTTPRequestSerializer()
         manager.responseSerializer = AFHTTPResponseSerializer()
         manager.responseSerializer.acceptableContentTypes = NSSet(objects: "text/xml") as? Set<String>
-        let parameters : NSMutableDictionary = FlickrService.flickrParameters(page)
+        let parameters : NSMutableDictionary = FlickrService.flickrParameters(self.largestPageLoaded + 1)
         parameters.setObject(kMethodFlickrGetRecentPublicPhotos, forKey: "method")
         
         manager.GET(url, parameters: parameters, progress:nil, success: { (operation: NSURLSessionTask!, responseObject: AnyObject?) -> Void in
             let responseData : NSData = responseObject as! NSData
-            let responseXML : String = String(data: responseData, encoding: NSUTF8StringEncoding)!
-            let xmlDoc = SWXMLHash.parse(responseXML)
-            //let photos : [Photo] = FlickrParser.parseResponseFromServer(responseObject?.objectForKey("photo") as? [Dictionary<String, String>])
-            //self.recentPhotos = self.recentPhotos + photos
-            //completionHandler?(photos : photos, error : nil)
-            completionHandler?(photos : nil, error : nil)
+            let (photos, pageNumber) = FlickrParser.parseResponseFromServer(responseData)
+            for photo in photos {
+                if (!self.receivedPhotos.contains(photo.id!)) {
+                    self.recentPhotos.append(photo)
+                    self.receivedPhotos.insert(photo.id!)
+                }
+            }
+            if (pageNumber != nil) {
+                self.largestPageLoaded = max(self.largestPageLoaded, pageNumber!)
+            }
+            self.dataFetchInProgress = false
+            completionHandler?(photos : photos, error : nil)
         }, failure: { (operation: NSURLSessionTask?, error: NSError!) -> Void in
+            self.dataFetchInProgress = false
             completionHandler?(photos : nil, error: error)
         })
     }

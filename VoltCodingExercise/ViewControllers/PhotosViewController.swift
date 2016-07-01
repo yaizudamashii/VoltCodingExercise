@@ -12,6 +12,7 @@ import PureLayout
 class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var tableView : UITableView!
+    var footerViewWithSpinner : UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,12 +21,26 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.view.addSubview(self.tableView)
-        let nibName = UINib(nibName: "PhotoTableViewCell", bundle:nil)
-        self.tableView.registerNib(nibName, forCellReuseIdentifier: "photoCell")
+        self.tableView.registerClass(PhotoTableViewCell.self, forCellReuseIdentifier: "photoCell")
         self.tableView.estimatedRowHeight = self.view.frame.size.width
         self.tableView.autoPinEdgesToSuperviewEdges()
         
-        FlickrService.sharedInstance.getRecentPublicPhotosWithCompletionHandler(1, completionHandler: {(photos : [Photo]?, error : NSError?) -> Void in
+        self.loadPhotos()
+        self.initFooterView()
+    }
+
+    func initFooterView() {
+        self.footerViewWithSpinner = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 40.0))
+        var bottomSpinner : UIActivityIndicatorView? = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        bottomSpinner!.tag = 10
+        self.footerViewWithSpinner.addSubview(bottomSpinner!)
+        bottomSpinner!.autoCenterInSuperview()
+        bottomSpinner!.hidesWhenStopped = true
+        bottomSpinner = nil
+    }
+    
+    func loadPhotos() {
+        FlickrService.sharedInstance.getRecentPublicPhotosWithCompletionHandler({(photos : [Photo]?, error : NSError?) -> Void in
             if (error == nil) {
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView.reloadData()
@@ -40,7 +55,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         })
     }
-
+    
     // MARK - UITableViewDataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return FlickrService.sharedInstance.recentPhotos.count
@@ -55,6 +70,9 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell : PhotoTableViewCell = tableView.dequeueReusableCellWithIdentifier("photoCell", forIndexPath: indexPath) as! PhotoTableViewCell
         let photo : Photo = FlickrService.sharedInstance.recentPhotos[indexPath.section]
         cell.setUpWithPhoto(photo)
+        if (indexPath.section == FlickrService.sharedInstance.recentPhotos.count - 1) {
+            self.loadPhotos()
+        }
         return cell
     }
     
@@ -65,5 +83,13 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         self.performSegueWithIdentifier("showProfile", sender:tableView.cellForRowAtIndexPath(indexPath))
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        let endOfTable : Bool = (scrollView.contentOffset.y >= ((CGFloat(FlickrService.sharedInstance.recentPhotos.count) * self.view.frame.size.width) - scrollView.frame.size.height))
+        if (endOfTable && FlickrService.sharedInstance.dataFetchInProgress && !scrollView.dragging && !scrollView.decelerating) {
+            self.tableView.tableFooterView = self.footerViewWithSpinner
+            (self.footerViewWithSpinner.viewWithTag(10) as! UIActivityIndicatorView).startAnimating()
+        }
     }
 }

@@ -25,6 +25,7 @@ class PhotoTableViewCell: UITableViewCell {
         self.photoTitle = UILabel(frame: titleLabelRect)
         self.addSubview(self.photoTitle)
         self.photoTitle.autoPinEdge(.Top, toEdge: .Top, ofView: self)
+        self.photoTitle.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
         
         self.spinner = UIActivityIndicatorView()
         self.addSubview(self.spinner)
