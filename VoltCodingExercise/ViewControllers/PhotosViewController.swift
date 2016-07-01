@@ -26,6 +26,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.title = AppTitle
         self.tableView = UITableView(frame: self.view.bounds)
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -114,7 +115,7 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        self.performSegueWithIdentifier("showProfile", sender:tableView.cellForRowAtIndexPath(indexPath))
+        self.performSegueWithIdentifier("showDetail", sender:tableView.cellForRowAtIndexPath(indexPath))
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
@@ -122,6 +123,23 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if (endOfTable && FlickrService.sharedInstance.dataFetchInProgress && !scrollView.dragging && !scrollView.decelerating) {
             self.tableView.tableFooterView = self.footerViewWithSpinner
             (self.footerViewWithSpinner.viewWithTag(10) as! UIActivityIndicatorView).startAnimating()
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "showDetail") {
+            let cell = sender as! UITableViewCell
+            let indexPath : NSIndexPath? = self.tableView.indexPathForCell(cell)
+            let detailViewController : PhotoDetailViewController = segue.destinationViewController as! PhotoDetailViewController
+            if (indexPath != nil) {
+                if (self.searchController.active && self.searchBarTextIsNotEmpty(self.searchController.searchBar.text!)) {
+                    let photo : Photo = FlickrService.sharedInstance.searchedPhotos[indexPath!.section]
+                    detailViewController.photo = photo
+                } else {
+                    let photo : Photo = FlickrService.sharedInstance.recentPhotos[indexPath!.section]
+                    detailViewController.photo = photo
+                }
+            }
         }
     }
     

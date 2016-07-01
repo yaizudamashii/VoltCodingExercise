@@ -27,3 +27,4 @@ let kFlickrXMLPhotoTitleKey : String = "title"
 // UI strings
 let AppError : String = "Error"
 let AppDismiss : String = "Dismiss"
+let AppTitle : String = "Flickr Recent Public Photos"

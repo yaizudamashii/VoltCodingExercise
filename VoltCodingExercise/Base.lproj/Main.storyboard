@@ -35,10 +35,32 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="jDm-KZ-1Bb"/>
+                    <connections>
+                        <segue destination="4MV-6C-Aqt" kind="show" identifier="showDetail" id="bE7-Cs-Ebz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="433" y="-44"/>
+        </scene>
+        <!--Photo Detail View Controller-->
+        <scene sceneID="wog-Qu-wTM">
+            <objects>
+                <viewController id="4MV-6C-Aqt" customClass="PhotoDetailViewController" customModule="VoltCodingExercise" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AJA-Gh-dcj"/>
+                        <viewControllerLayoutGuide type="bottom" id="hnu-S1-dG5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FF8-Lj-De4">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rSE-3t-fZ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1184" y="-44"/>
         </scene>
     </scenes>
 </document>
