@@ -35,7 +35,11 @@ class PhotoDetailViewController: UIViewController, UIScrollViewDelegate {
         self.photoTitle = UILabel(frame: titleLabelRect)
         self.view.addSubview(self.photoTitle)
         self.photoTitle.autoPinEdge(.Top, toEdge: .Top, ofView: self.view)
-        self.photoTitle.autoSetDimensionsToSize(CGSizeMake(self.view.frame.size.width, 84))
+        let heightConstraint = NSLayoutConstraint(item: self.photoTitle, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 84)
+        self.photoTitle.addConstraint(heightConstraint)
+        let views = ["photoTitle": self.photoTitle]
+        let widthConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[photoTitle]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+        view.addConstraints(widthConstraints)
         self.photoTitle.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.5)
         self.photoTitle.numberOfLines = 0
         
@@ -65,10 +69,17 @@ class PhotoDetailViewController: UIViewController, UIScrollViewDelegate {
         } else {
             self.photoTitle.text = self.photo.title
         }
+        
+        let tapRecognizer : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PhotoDetailViewController.tapCaptured(_:)))
+        self.scrollView.addGestureRecognizer(tapRecognizer)
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return self.photoImageView
+    }
+    
+    func tapCaptured(gesture : UITapGestureRecognizer) {
+        self.photoTitle.hidden = !self.photoTitle.hidden
     }
     
     func setInitialZoomScale() {

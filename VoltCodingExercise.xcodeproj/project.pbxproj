@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		51BF3FD26E8F364809BBA2D4 /* Pods_VoltCodingExercise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E614970A165F12793FDAAC3F /* Pods_VoltCodingExercise.framework */; };
 		B60D71771D2524C000C4C137 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60D71761D2524C000C4C137 /* AppDelegate.swift */; };
-		B60D71791D2524C000C4C137 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60D71781D2524C000C4C137 /* ViewController.swift */; };
 		B60D717C1D2524C000C4C137 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B60D717A1D2524C000C4C137 /* Main.storyboard */; };
 		B60D717E1D2524C000C4C137 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B60D717D1D2524C000C4C137 /* Assets.xcassets */; };
 		B60D71811D2524C000C4C137 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B60D717F1D2524C000C4C137 /* LaunchScreen.storyboard */; };
@@ -28,7 +27,6 @@
 		1B06107FD666ACE104BBA77A /* Pods-VoltCodingExercise.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoltCodingExercise.release.xcconfig"; path = "Pods/Target Support Files/Pods-VoltCodingExercise/Pods-VoltCodingExercise.release.xcconfig"; sourceTree = "<group>"; };
 		B60D71731D2524C000C4C137 /* VoltCodingExercise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoltCodingExercise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B60D71761D2524C000C4C137 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B60D71781D2524C000C4C137 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B60D717B1D2524C000C4C137 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B60D717D1D2524C000C4C137 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B60D71801D2524C000C4C137 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 				B60D71941D252CA000C4C137 /* Views */,
 				B60D71971D254B4B00C4C137 /* Utils */,
 				B60D71761D2524C000C4C137 /* AppDelegate.swift */,
-				B60D71781D2524C000C4C137 /* ViewController.swift */,
 				B60D717A1D2524C000C4C137 /* Main.storyboard */,
 				B60D717D1D2524C000C4C137 /* Assets.xcassets */,
 				B60D717F1D2524C000C4C137 /* LaunchScreen.storyboard */,
@@ -279,7 +276,6 @@
 			files = (
 				B60D71891D25250400C4C137 /* PhotosViewController.swift in Sources */,
 				B6BAA66C1D256CFE001CD7DF /* AppConstants.swift in Sources */,
-				B60D71791D2524C000C4C137 /* ViewController.swift in Sources */,
 				B60D71961D252CD200C4C137 /* PhotoTableViewCell.swift in Sources */,
 				B60D718E1D2525F000C4C137 /* FlickrService.swift in Sources */,
 				B620279D1D26B5910094DD2A /* PhotoDetailViewController.swift in Sources */,
