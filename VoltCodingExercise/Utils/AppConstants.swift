@@ -10,6 +10,7 @@ import UIKit
 
 // Flickr methods
 let kMethodFlickrGetRecentPublicPhotos : String = "flickr.photos.getRecent"
+let kMethodFlickrSearchForPhotos : String = "flickr.photos.search"
 
 // Flickr API response keys
 let kFlickrXMLRespKey : String = "rsp"

@@ -22,10 +22,19 @@ class FlickrService: NSObject {
     static let APIKey : String = "8ff4e3be97b270e0fa3a7beb69125340"
     static let secret : String = "3667574d899a23cd"
     
+    var searchManager : AFHTTPSessionManager!
+    var searchTasks : [NSURLSessionDataTask] = [NSURLSessionDataTask]()
+    
     var dataFetchInProgress : Bool = false
     var largestPageLoaded : Int = 0
     var recentPhotos : [Photo] = [Photo]()
     var receivedPhotos : Set<String> = Set<String>()
+    
+    var searchDataFetchInProgress : Bool = false
+    var searchTerms : Set<String> = Set<String>()
+    var searchLargestPageLoaded : Int = 0
+    var searchedPhotos : [Photo] = [Photo]()
+    var searchReceivedPhotos : Set<String> = Set<String>()
     
     static func flickrParameters(page : Int) -> NSMutableDictionary {
         return ["api_key" : FlickrService.APIKey,
@@ -33,9 +42,12 @@ class FlickrService: NSObject {
                 "page" : "\(page)"]
     }
     
-    func setFlickrHeader(manager : AFHTTPSessionManager!) -> AFHTTPSessionManager {
-        manager.requestSerializer.setValue("application/xml", forHTTPHeaderField: "Content-Type")
-        return manager
+    private override init() {
+        super.init()
+        self.searchManager = AFHTTPSessionManager()
+        self.searchManager.requestSerializer = AFHTTPRequestSerializer()
+        self.searchManager.responseSerializer = AFHTTPResponseSerializer()
+        self.searchManager.responseSerializer.acceptableContentTypes = NSSet(objects: "text/xml") as? Set<String>
     }
     
     func getRecentPublicPhotosWithCompletionHandler(completionHandler : ((photos : [Photo]?, error : NSError?) -> Void)?) {
@@ -89,6 +101,50 @@ class FlickrService: NSObject {
                     completionHandler?(image: nil, error : error)
                 }
             })
+        }
+    }
+    
+    func getPhotosForSearchTermsWithCompletionHandler(searchTerms : Set<String>, completionHandler : ((photos : [Photo]?, error : NSError?) -> Void)?) {
+        if (searchTerms.isEqualToSet(self.searchTerms)) {
+            if (self.searchDataFetchInProgress == true) {
+                completionHandler?(photos : nil, error : nil)
+                return
+            }
+        } else {
+            self.searchTerms = searchTerms
+            self.searchLargestPageLoaded = 0
+            self.searchedPhotos = [Photo]()
+            self.searchReceivedPhotos = Set<String>()
+            for task in self.searchTasks {
+                task.cancel()
+            }
+        }
+        self.searchDataFetchInProgress = true
+        
+        let parameters : NSMutableDictionary = FlickrService.flickrParameters(self.searchLargestPageLoaded + 1)
+        parameters.setObject(kMethodFlickrSearchForPhotos, forKey: "method")
+        parameters.setObject(searchTerms.joinWithSeparator(","), forKey: "tags")
+        
+        let task : NSURLSessionDataTask? = self.searchManager.GET(FlickrService.FLICKR_REST_API, parameters: parameters, progress:nil, success: { (operation: NSURLSessionTask!, responseObject: AnyObject?) -> Void in
+            let responseData : NSData = responseObject as! NSData
+            let (photos, pageNumber) = FlickrParser.parseResponseFromServer(responseData)
+            for photo in photos {
+                if (!self.searchReceivedPhotos.contains(photo.id!)) {
+                    self.searchedPhotos.append(photo)
+                    self.searchReceivedPhotos.insert(photo.id!)
+                }
+            }
+            if (pageNumber != nil) {
+                self.searchLargestPageLoaded = max(self.searchLargestPageLoaded, pageNumber!)
+            }
+            self.searchDataFetchInProgress = false
+            completionHandler?(photos : photos, error : nil)
+        }, failure: { (operation: NSURLSessionTask?, error: NSError!) -> Void in
+            self.searchDataFetchInProgress = false
+            completionHandler?(photos : nil, error: error)
+        })
+        if (task != nil) {
+            self.searchTasks.append(task!)
         }
     }
 }

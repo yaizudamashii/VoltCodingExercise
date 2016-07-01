@@ -9,9 +9,18 @@
 import UIKit
 import PureLayout
 
+extension PhotosViewController: UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        let searchTermsArray : [String] = searchController.searchBar.text!.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        let searchTerms : Set<String> = Set(searchTermsArray)
+        self.fetchContentsForSearchText(searchTerms)
+    }
+}
+
 class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var tableView : UITableView!
+    var searchController : UISearchController = UISearchController(searchResultsController: nil)
     var footerViewWithSpinner : UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +33,11 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.registerClass(PhotoTableViewCell.self, forCellReuseIdentifier: "photoCell")
         self.tableView.estimatedRowHeight = self.view.frame.size.width
         self.tableView.autoPinEdgesToSuperviewEdges()
+        
+        self.searchController.searchResultsUpdater = self
+        self.searchController.dimsBackgroundDuringPresentation = false
+        self.definesPresentationContext = true
+        self.tableView.tableHeaderView = self.searchController.searchBar
         
         self.loadPhotos()
         self.initFooterView()
@@ -56,8 +70,21 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
         })
     }
     
+    func searchBarTextIsNotEmpty(searchBarText : String) -> Bool {
+        let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
+        if (searchController.searchBar.text!.stringByTrimmingCharactersInSet(whitespaceSet) != "") {
+            return true
+        }
+        return false
+    }
+    
     // MARK - UITableViewDataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if (self.searchController.active) {
+            if (self.searchBarTextIsNotEmpty(self.searchController.searchBar.text!)) {
+                return FlickrService.sharedInstance.searchedPhotos.count
+            }
+        }
         return FlickrService.sharedInstance.recentPhotos.count
     }
     
@@ -68,7 +95,12 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell : PhotoTableViewCell = tableView.dequeueReusableCellWithIdentifier("photoCell", forIndexPath: indexPath) as! PhotoTableViewCell
-        let photo : Photo = FlickrService.sharedInstance.recentPhotos[indexPath.section]
+        var photo : Photo
+        if (self.searchController.active && self.searchBarTextIsNotEmpty(self.searchController.searchBar.text!)) {
+            photo = FlickrService.sharedInstance.searchedPhotos[indexPath.section]
+        } else {
+            photo = FlickrService.sharedInstance.recentPhotos[indexPath.section]
+        }
         cell.setUpWithPhoto(photo)
         if (indexPath.section == FlickrService.sharedInstance.recentPhotos.count - 1) {
             self.loadPhotos()
@@ -91,5 +123,23 @@ class PhotosViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.tableView.tableFooterView = self.footerViewWithSpinner
             (self.footerViewWithSpinner.viewWithTag(10) as! UIActivityIndicatorView).startAnimating()
         }
+    }
+    
+    // MARK - search
+    func fetchContentsForSearchText(searchTerms: Set<String>) {
+        FlickrService.sharedInstance.getPhotosForSearchTermsWithCompletionHandler(searchTerms, completionHandler: {(photos : [Photo]?, error : NSError?) -> Void in
+            if (error == nil) {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView.reloadData()
+                })
+            } else {
+                let errorAlert : UIAlertController = AppAlerts.debugErrorDisplayAlertWithDissmissAction(error!.localizedDescription, dismissHandler : nil)
+                dispatch_async(dispatch_get_main_queue(), {
+                    if (self.presentedViewController == nil) {
+                        self.presentViewController(errorAlert, animated: true, completion: nil)
+                    }
+                })
+            }
+        })
     }
 }

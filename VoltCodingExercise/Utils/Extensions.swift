@@ -16,3 +16,17 @@ extension Optional where Wrapped: OptionalString {
         return ((self as? String) ?? "").isEmpty
     }
 }
+
+extension Set {
+    func isEqualToSet(otherSet : Set<Element>) -> Bool {
+        if (self.count != otherSet.count) {
+            return false
+        }
+        for element in otherSet {
+            if (!self.contains(element)) {
+                return false
+            }
+        }
+        return true
+    }
+}
